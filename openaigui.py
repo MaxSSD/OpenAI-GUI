@@ -3,25 +3,7 @@ import pyttsx3
 from tkinter import *
 
 
-openai.api_key = "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"
-
-#Engine Types
-#engines = openai.Engine.list()
-"""
-print the first engine's id
-print(engines.data[0].id)
-"""
-""" @https://beta.openai.com/docs/engines/gpt-3
-text-davinci-002 <--- Complex intent, cause and effect, summarization for audience
-text-curie-001 <---  Language translation, complex classification, text sentiment, summarization
-text-babbage-001 <--- Moderate classification, semantic search classification
-text-ada-001 <--- Parsing text, simple classification, address correction, keywords
-"""
-# Codex
-""" @https://beta.openai.com/docs/engines/codex-series-private-beta
-code-davinci-002 <--- Completions within code
-cide-cushman-001 <--- Faster completion
-"""
+openai.api_key = "APIKEY" #Get your at --> https://beta.openai.com/account/api-keys
 
 """ GUI SPECIFICATIONS """
 me = Tk()
@@ -70,7 +52,7 @@ melabel.grid_columnconfigure(1, weight=1)
 but_choice=Button(me, bg='Black',fg='White',text="Speak",command=openAi,font=("Arial",15,'bold'))
 txt_input = Entry(me, textvar=prompt_in, bg='White', fg='Black', font=("Arial",12,'bold'))
 
-""" GUI DESIGN """
+
 but_choice.grid(row=5, column=0, sticky="we")
 txt_input.grid(row=4, column=0, sticky="we")
 
