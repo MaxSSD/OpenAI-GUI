@@ -5,7 +5,7 @@ from tkinter import Tk,Frame,Label,Button,Entry,Text,StringVar,mainloop
 from resizeimage import resizeimage
 
 # API KEY
-openai.api_key = "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"
+openai.api_key = "Api key"
 
 # AI ENGINE TYPES
 #engines = openai.Engine.list()
