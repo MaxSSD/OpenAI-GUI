@@ -5,7 +5,7 @@ The program works. If you encounter problems running it or have other bug report
 
 
 # Screenshots & Videos
-TBD
+![Capture](https://user-images.githubusercontent.com/86234226/206861632-620e85da-d41d-44e2-ae06-bdf68ef8ab91.PNG)
 
 # Installation
 
