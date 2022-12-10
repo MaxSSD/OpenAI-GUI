@@ -5,7 +5,7 @@ The program works. If you encounter problems running it or have other bug report
 
 
 # Screenshots & Videos
-[<img title="AVP running on Windows" alt="Screenshot of program on Windows" src="screenshot.png" width="707">](/screenshot.png?raw=true)
+TBD
 
 # Installation
 
