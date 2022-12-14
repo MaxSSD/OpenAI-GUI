@@ -43,7 +43,7 @@ Give 10 ideas for python automation implementations.
 * openai==0.16.0
 * pyttsx3==2.90
 * tk==0.1.0
-* python-resize-image==1.1.20
+* Pillow==9.2.0
 
 
 ## Developing a New Component
