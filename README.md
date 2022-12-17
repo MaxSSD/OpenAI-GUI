@@ -4,12 +4,10 @@
 The program works. If you encounter problems running it or have other bug reports or features that you wish to see implemented, please fork the project and submit a pull request and/or file an [issue](https://github.com/MaxSSD/OpenAI-GUI/issues) on this project.
 
 # Screenshots & Videos
-
-** openaigui.py
 ![Capture](https://user-images.githubusercontent.com/86234226/206861632-620e85da-d41d-44e2-ae06-bdf68ef8ab91.PNG)
-
-** openaipysgui.py
+*openaigui.py
 ![PYSimpleopenai](https://user-images.githubusercontent.com/86234226/208240516-02b90a7a-3133-4ae6-bbdc-7f738ced4a96.PNG)
+*openaipysgui.py
 
 # Installation
 
@@ -27,7 +25,7 @@ pip install requirements.txt
 ```
 * Start the editor and run the code.
 
-# [Keyboard Shortcuts](https://github.com/djfun/audio-visualizer-python/wiki/Keyboard-Shortcuts)
+# [Keyboard Shortcuts]
 | Key Combo                 | Effect                                             |
 | ------------------------- | -------------------------------------------------- |
 | Enter                     | Speak                                              |
