@@ -6,6 +6,7 @@ The program works. If you encounter problems running it or have other bug report
 # Screenshots & Videos
 ![Capture](https://user-images.githubusercontent.com/86234226/206861632-620e85da-d41d-44e2-ae06-bdf68ef8ab91.PNG)
 *openaigui.py
+
 ![PYSimpleopenai](https://user-images.githubusercontent.com/86234226/208240516-02b90a7a-3133-4ae6-bbdc-7f738ced4a96.PNG)
 *openaipysgui.py
 
