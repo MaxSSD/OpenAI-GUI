@@ -39,9 +39,9 @@ def make_window():
         [sg.Radio('Choose model', 'RADIO1', key='modules'),
          sg.Combo(['text-davinci-002', 'text-curie-001', 'text-babbage-001', 'text-ada-001'], key='engines')],
         [sg.Text('Enter your question or statement below:', font=("Arial", 9, 'bold'))],
-        [sg.Input(key='prompt', size=(70, 1), do_not_clear=True)],
+        [sg.Multiline(key="prompt", size=(77, 20))],
+        # [sg.Input(key='prompt', size=(77, 1), do_not_clear=True)],
         [sg.Button('Answer'), sg.Button('Quit')]
-        # [sg.Multiline(size=(70, 5), key='textbox')]
     ]
     layout_about = [
         [sg.Text('text-davinci-002 - Complex intent, cause and effect, summarization for audience')],
@@ -82,4 +82,3 @@ if __name__ == '__main__':
     sg.theme('dark red')
     sg.theme('dark green 7')
     main()
-
