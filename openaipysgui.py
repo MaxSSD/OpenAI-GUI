@@ -43,11 +43,18 @@ def make_window():
         [sg.Button('Answer'), sg.Button('Quit')]
         # [sg.Multiline(size=(70, 5), key='textbox')]
     ]
+    layout_about = [
+        [sg.Text('text-davinci-002 - Complex intent, cause and effect, summarization for audience')],
+        [sg.Text('text-curie-001 - Language translation, complex classification, text sentiment, summarization')],
+        [sg.Text('text-babbage-001 - Moderate classification, semantic search classification')],
+        [sg.Text('text-ada-001 - Parsing text, simple classification, address correction, keywords')]
+    ]
 
     layout = [[sg.Text('OpenAIGUI', size=(63, 1), justification='center', font=("Helvetica", 13),
                        relief=sg.RELIEF_RIDGE, k='-TEXT HEADING-', enable_events=True)]]
 
-    layout += [[sg.TabGroup([[sg.Tab('OpenAi', layout_d)]], key='-TAB GROUP-', expand_x=True, expand_y=True)
+    layout += [[sg.TabGroup([[sg.Tab('OpenAi', layout_d),
+                              sg.Tab('About', layout_about)]], key='-TAB GROUP-', expand_x=True, expand_y=True)
                 ]]
     layout[-1].append(sg.Sizegrip())
     # GUI WINDOW
@@ -65,14 +72,6 @@ def main():
             prompt_in = values['prompt']
             sg.Popup('Responded to answer.txt file')
             openAi(engines, prompt_in)
-        if event == engines == 'text-davinci-002':
-            sg.Popup('Complex intent, cause and effect, summarization for audience')
-        if event == engines == 'text-curie-001':
-            sg.Popup('Language translation, complex classification, text sentiment, summarization')
-        if event == engines == 'text-babbage-001':
-            sg.Popup('Moderate classification, semantic search classification')
-        if event == engines == 'text-ada-001':
-            sg.Popup('Parsing text, simple classification, address correction, keywords')
         elif event == sg.WINDOW_CLOSED or event == 'Quit':
             break
     window.close()
@@ -83,3 +82,4 @@ if __name__ == '__main__':
     sg.theme('dark red')
     sg.theme('dark green 7')
     main()
+
