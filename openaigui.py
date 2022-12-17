@@ -24,7 +24,7 @@ class OpenAIGUI:
         def speak(audio):
             # print(audio)
             engine.say(audio)
-            engine.runAndWait
+            engine.runAndWait()
 
         command = self.prompt_in.get()
         self.prompt_in.set(command)
