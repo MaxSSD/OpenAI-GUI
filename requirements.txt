@@ -2,3 +2,4 @@ openai==0.16.0
 pyttsx3==2.90
 tk==0.1.0
 Pillow==9.2.0
+PySimpleGUI==4.60.4
