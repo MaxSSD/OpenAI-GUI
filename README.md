@@ -3,9 +3,13 @@
 
 The program works. If you encounter problems running it or have other bug reports or features that you wish to see implemented, please fork the project and submit a pull request and/or file an [issue](https://github.com/MaxSSD/OpenAI-GUI/issues) on this project.
 
-
 # Screenshots & Videos
+
+** openaigui.py
 ![Capture](https://user-images.githubusercontent.com/86234226/206861632-620e85da-d41d-44e2-ae06-bdf68ef8ab91.PNG)
+
+** openaipysgui.py
+![PYSimpleopenai](https://user-images.githubusercontent.com/86234226/208240516-02b90a7a-3133-4ae6-bbdc-7f738ced4a96.PNG)
 
 # Installation
 
@@ -21,7 +25,7 @@ The program works. If you encounter problems running it or have other bug report
 ```
 pip install requirements.txt
 ```
-* Start the app with `run openai` or `python3 -m openaigui.py`
+* Start the editor and run the code.
 
 # [Keyboard Shortcuts](https://github.com/djfun/audio-visualizer-python/wiki/Keyboard-Shortcuts)
 | Key Combo                 | Effect                                             |
@@ -31,24 +35,25 @@ pip install requirements.txt
 | Delete                    | Delete text                                        |
 
 
-# Commandline Mode
-Projects can be created with the GUI then loaded from the commandline for easy automation of GPT3 model prompt queries.
+# Use ase
+Prompt can be input into the GUI then loaded for easy automation of GPT3 model queries to text files on desktop.
 
 ## Example/test command
 Give 10 ideas for python automation implementations.
 
-
 # Developer Information
-## Known Working Versions of Dependencies
+## Known Working Versions of Dependencies for openaigui.py
 * openai==0.16.0
 * pyttsx3==2.90
 * tk==0.1.0
 * Pillow==9.2.0
-
+## Known Working Versions of Dependencies for openaipysgui.py
+* openai==0.16.0
+* pyttsx3==2.90
+* PySimpleGUI==4.60.4
 
 ## Developing a New Component
 * File an issue on GitHub if you need help fitting your OpenAI-GUI into our component system; we would be happy to collaborate
-
 
 # License
 Source code of OpenAI-GUI is licensed under the MIT license.
