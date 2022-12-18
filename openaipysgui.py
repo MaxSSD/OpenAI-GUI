@@ -7,7 +7,9 @@ from imgnsound import noacc, engine, voices, speak
 # @https://beta.openai.com/docs/engines/gpt-3
 
 def modules(engines):
-    if engines == "text-davinci-002":
+    if engines == "text-davinci-003":
+        m = "text-davinci-003"
+    elif engines == "text-davinci-002":
         m = "text-davinci-002"
     elif engines == "text-curie-001":
         m = "text-curie-001"
@@ -23,13 +25,16 @@ def openAi(engines, prompt_in):
                                          top_p=1.0, frequency_penalty=0.0, presence_penalty=0.0)
     result = completion.choices[0].text
     length = ((result).join(result)).count(result) + 1
+
     # Creating an object
     logger = logging.getLogger()
     logging.basicConfig(filename='answers.txt', level=logging.INFO)
     if length < 150:
+        sg.Popup('Responding...')
         speak(result)
         logger.info(result)
     else:
+        sg.Popup('Responded to answer.txt')
         speak(noacc)
         logger.info(result)
 
@@ -37,13 +42,14 @@ def make_window():
     # GUI LAYOUT
     layout_d = [
         [sg.Radio('Choose model', 'RADIO1', key='modules'),
-         sg.Combo(['text-davinci-002', 'text-curie-001', 'text-babbage-001', 'text-ada-001'], key='engines')],
+         sg.Combo(['text-davinci-003', 'text-davinci-002', 'text-curie-001', 'text-babbage-001', 'text-ada-001'], key='engines')],
         [sg.Text('Enter your question or statement below:', font=("Arial", 9, 'bold'))],
         [sg.Multiline(key="prompt", size=(77, 20))],
         # [sg.Input(key='prompt', size=(77, 1), do_not_clear=True)],
         [sg.Button('Answer'), sg.Button('Quit')]
     ]
     layout_about = [
+        [sg.Text('text-davinci-003 - Upgraded davinci-002. GPT3 chatbot model.')],
         [sg.Text('text-davinci-002 - Complex intent, cause and effect, summarization for audience')],
         [sg.Text('text-curie-001 - Language translation, complex classification, text sentiment, summarization')],
         [sg.Text('text-babbage-001 - Moderate classification, semantic search classification')],
@@ -70,7 +76,6 @@ def main():
         engines = values['engines'] if values['engines'] == 'Choose model' else values['engines']
         if event == 'Answer':
             prompt_in = values['prompt']
-            sg.Popup('Responded to answer.txt file')
             openAi(engines, prompt_in)
         elif event == sg.WINDOW_CLOSED or event == 'Quit':
             break
