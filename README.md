@@ -67,5 +67,5 @@ OpenAI based model GUI tool which displays a desktop prompt window for OpenAI GP
 * File an issue on GitHub if you need help fitting your OpenAI-GUI into our component system; we would be happy to collaborate. We welcome contributions to this project! If you have an idea for a new feature or bug fix, please open a new issue and let us know.
 
 # License
-Source code of OpenAI-GUI is licensed under the MIT license.
+Source code of OpenAI-GUI is licensed under the [MIT License](https://github.com/MaxSSD/OpenAI-GUI/blob/main/LICENSE).
 Some dependencies of this application are under the GPL license. When packaged with these dependencies, OpenAI-GUI may also be under the terms of this GPL license.
