@@ -1,5 +1,6 @@
 # OpenAI-GUI
-**OpenAI based model GUI tool which displays a desktop prompt window for OpenAI GPT3**
+
+This is a graphical user interface (GUI) for interacting with various OpenAI models. With this GUI, you can easily run various language and machine learning models, such as GPT-3 and DALL-E, without needing to use the command line.
 
 The program works. If you encounter problems running it or have other bug reports or features that you wish to see implemented, please fork the project and submit a pull request and/or file an [issue](https://github.com/MaxSSD/OpenAI-GUI/issues) on this project.
 
@@ -10,32 +11,37 @@ The program works. If you encounter problems running it or have other bug report
 4. Write to class
 
 # Screenshots & Videos
-openaipysgui.py
+openaigui.py
 
 ![Capture](https://user-images.githubusercontent.com/86234226/210730764-868f82f4-9c65-4139-bebc-d34e6d811e0b.PNG)
 
-openaigui.py
+# Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-![Capture](https://user-images.githubusercontent.com/86234226/210731879-9a796974-802f-4764-8dd5-ba6d45720de9.PNG)
+# Prerequisites
+In order to use this GUI, you will need to have a valid OpenAI API key. You can sign up for a free API key at the [OpenAI website](https://www.python.org/downloads/).
 
+You will also need to have Python 3 installed on your machine. You can download Python 3 from the official [Python website](https://www.python.org/downloads/).
 
 # Installation
+To install the GUI, first clone the repository to your local machine:
 
-## Installation on Windows
-* Install Python from the Windows Store
-* Add Python to your system PATH (it should ask during the installation process)
-* Download this repo (extract from zip if needed)
-* Open command prompt, `cd` into the repo directory, and run: `pip install .`
-* Download this repository and install it using Pip: `pip3 install .` (or use `pipx` for isolation)
-* Add your API key from [https://beta.openai.com/account/api-keys]
-* Copy it into the api_key.py file.
-* Use the following commands to install the needed dependencies:
 ```
-pip install requirements.txt
+git clone https://github.com/MaxSSD/OpenAI-GUI.git
 ```
-* Start the editor and run the code.
+Next, navigate to the root directory of the project and install the required dependencies:
+```
+cd OpenAI-GUI
+pip install -r requirements.txt
+```
+# Usage
+To run the GUI, simply enter the following command:
+```
+python main.py
+```
+The GUI will then open in a new window. You can select the desired OpenAI model from the dropdown menu and enter your input in the text box. When you are ready, click the "Run" button to send your input to the model and view the results.
 
-# [Keyboard Shortcuts]
+# Keyboard Shortcuts
 | Key Combo                 | Effect                                             |
 | ------------------------- | -------------------------------------------------- |
 | Enter                     | Speak                                              |
@@ -44,26 +50,22 @@ pip install requirements.txt
 
 
 # Use ase
-Prompt can be input into the GUI then loaded for easy automation of GPT3 model queries to text files on desktop.
+OpenAI based model GUI tool which displays a desktop prompt window for OpenAI GPT3
 
 ## Example/test command
-Give 10 ideas for python automation implementations.
+1. Give 10 ideas for python automation implementations.
+2. Review this code: "..."
+3. Summarize this text: "..."
 
 # Developer Information
-## Known Working Versions of Dependencies for openaigui.py
-* openai==0.16.0
-* pyttsx3==2.90
-* tk==0.1.0
-* Pillow==9.2.0
 ## Known Working Versions of Dependencies for openaipysgui.py
 * openai==0.16.0
 * pyttsx3==2.90
 * PySimpleGUI==4.60.4
 
 ## Developing a New Component
-* File an issue on GitHub if you need help fitting your OpenAI-GUI into our component system; we would be happy to collaborate
+* File an issue on GitHub if you need help fitting your OpenAI-GUI into our component system; we would be happy to collaborate. We welcome contributions to this project! If you have an idea for a new feature or bug fix, please open a new issue and let us know.
 
 # License
 Source code of OpenAI-GUI is licensed under the MIT license.
-
 Some dependencies of this application are under the GPL license. When packaged with these dependencies, OpenAI-GUI may also be under the terms of this GPL license.
