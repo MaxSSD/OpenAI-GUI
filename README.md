@@ -10,7 +10,8 @@ openaipysgui.py
 
 openaigui.py
 
-![Capture](https://user-images.githubusercontent.com/86234226/206861632-620e85da-d41d-44e2-ae06-bdf68ef8ab91.PNG)
+![Capture](https://user-images.githubusercontent.com/86234226/210730764-868f82f4-9c65-4139-bebc-d34e6d811e0b.PNG)
+
 
 # Installation
 
