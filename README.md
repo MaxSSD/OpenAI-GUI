@@ -3,14 +3,20 @@
 
 The program works. If you encounter problems running it or have other bug reports or features that you wish to see implemented, please fork the project and submit a pull request and/or file an [issue](https://github.com/MaxSSD/OpenAI-GUI/issues) on this project.
 
+# TBD
+1. Voice prompt on press or voice command.
+2. Button binds for functionality (Enter, Esc, Delete)
+3. Embeddings text input from https://beta.openai.com/docs/guides/embeddings/what-are-embeddings
+4. Write to class
+
 # Screenshots & Videos
 openaipysgui.py
 
-![PYSimpleopenai](https://user-images.githubusercontent.com/86234226/208240516-02b90a7a-3133-4ae6-bbdc-7f738ced4a96.PNG)
+![Capture](https://user-images.githubusercontent.com/86234226/210730764-868f82f4-9c65-4139-bebc-d34e6d811e0b.PNG)
 
 openaigui.py
 
-![Capture](https://user-images.githubusercontent.com/86234226/210730764-868f82f4-9c65-4139-bebc-d34e6d811e0b.PNG)
+![Capture](https://user-images.githubusercontent.com/86234226/210731879-9a796974-802f-4764-8dd5-ba6d45720de9.PNG)
 
 
 # Installation
