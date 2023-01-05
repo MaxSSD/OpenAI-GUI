@@ -37,7 +37,7 @@ pip install -r requirements.txt
 # Usage
 To run the GUI, simply enter the following command:
 ```
-python main.py
+python openaigui.py
 ```
 The GUI will then open in a new window. You can select the desired OpenAI model from the dropdown menu and enter your input in the text box. When you are ready, click the "Run" button to send your input to the model and view the results.
 
