@@ -1,8 +1,6 @@
 import pyttsx3
 from PIL import Image
 
-count = 0
-anim = None
 # ERROR RESPONSE VOICE COMMANDS
 noacc = "Too many characters, printing in file"
 
