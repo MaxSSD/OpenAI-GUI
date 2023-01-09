@@ -101,13 +101,7 @@ def make_window(theme):
 
 # GUI window that runs the main() function to interact with the user.
 def main():
-    window = make_window(sg.theme())
-    # Set keyboard shortcuts for the buttons [ADD KEY BINDS]
-    # window.bind(bind_string="<Enter>", key="Answer", propagate=True)
-    # window['Answer'].bind('<Return>', 'Answer')
-    # window['Clear'].bind('<Delete>', 'Clear')
-    # window['Quit'].bind('<Escape>', close_me)
-    
+    window = make_window(sg.theme())   
     # Event loop.
     while True:
         event, values = window.read(timeout=100)
