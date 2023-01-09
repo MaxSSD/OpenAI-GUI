@@ -2,11 +2,18 @@ import logging
 import PySimpleGUI as sg
 import openai
 import os
+import requests
+import urllib.request
+from PIL import Image
+from io import BytesIO
 from api_key import key
 from imgnsound import noacc, speak
 
 
 # @https://beta.openai.com/docs/engines/gpt-3
+
+logger = logging.getLogger()
+logging.basicConfig(filename='answers.txt', level=logging.INFO)
 
 # Defines the modules() and openAi() functions which are used to select the engine and generate a response.
 def modules(engines):
@@ -22,12 +29,10 @@ def modules(engines):
         model = "text-ada-001"
     return model
 
-def openAi(engines, prompt_in):
+def openAi(prompt_in):
     completion = openai.Completion.create(engine=modules(engines), prompt=prompt_in, temperature=0, max_tokens=377,
                                          top_p=1.0, frequency_penalty=0.0, presence_penalty=0.0)
     result = completion.choices[0].text
-    logger = logging.getLogger()
-    logging.basicConfig(filename='answers.txt', level=logging.INFO)
     if len(result) < 150:
         sg.Popup('Responding...', keep_on_top=True)
         speak(result)
@@ -38,6 +43,23 @@ def openAi(engines, prompt_in):
         with open('answers.txt', 'a+') as f:
             f.write(result)
 
+def dalle(prompt_ins):
+    try:
+        response = openai.Image.create(
+            prompt=prompt_ins,
+            n=1,
+            size="256x256"
+        )
+        image_url = response['data'][0]['url']
+        webUrl = urllib.request.urlopen(image_url)
+        img = Image.open(webUrl)
+        speak('Displaying and saving image')
+        img.save(f'Dall-E: {prompt_ins}.png')
+        img.show()
+    except openai.error.OpenAIError as e:
+        logging.info(e.http_status)
+        logging.info(e.error)
+        
 def make_window(theme):
     sg.theme(theme)
     # GUI layout.
@@ -45,11 +67,16 @@ def make_window(theme):
         [sg.Text("OpenAIGUI", size=(63, 1), justification="center", font=("Helvetica", 13), relief=sg.RELIEF_RIDGE, key="-TEXT HEADING-", enable_events=True)],
         [sg.TabGroup([
             [sg.Tab("OpenAi", [
-                [sg.Radio("Choose model", "RADIO1", key="modules"), sg.Combo(["text-davinci-003", "text-davinci-002", "text-curie-001", "text-babbage-001", "text-ada-001"], key="engines")],
+                [sg.Radio("Choose model", "RADIO1", key="modules"), sg.Combo(["text-davinci-003", "text-davinci-002", "text-curie-001", "text-babbage-001", "text-ada-001"],key="engines")],
                 [sg.Text("Enter your question or statement below:", font=("Arial", 9, 'bold'))],
                 [sg.Multiline(key="prompt", size=(77, 20))],
                 [sg.Button("Answer"), sg.Button('Open file'), sg.Button("Clear"), sg.Button("Quit")]
             ]),
+             sg.Tab("Dall-E", [
+                 [sg.Text("Suggest impression:", font=("Arial", 9, 'bold'))],
+                 [sg.Multiline(key="promptdalle", size=(77, 20))],
+                 [sg.Button("Create image"), sg.Button("Clear"), sg.Button("Quit")]
+             ]),
             sg.Tab("Theme", [
                 [sg.Text("Choose theme:")],
                 [sg.Listbox(values=sg.theme_list(), size=(20, 12), key="-THEME LISTBOX-", enable_events=True)],
@@ -68,19 +95,19 @@ def make_window(theme):
     # Gui window and layout sizing.
     # icon='C:/OpenAI-GUI/icon.ico'
     window = sg.Window('OpenAI GUI', layout, resizable=True, return_keyboard_events=True, finalize=True)
+    # window.bind(bind_string="<Enter>", key="Answer", propagate=True)
     # window.bind('<Configure>', "Configure")
     return window
 
 # GUI window that runs the main() function to interact with the user.
 def main():
     window = make_window(sg.theme())
-
     # Set keyboard shortcuts for the buttons [ADD KEY BINDS]
     # window.bind(bind_string="<Enter>", key="Answer", propagate=True)
     # window['Answer'].bind('<Return>', 'Answer')
     # window['Clear'].bind('<Delete>', 'Clear')
     # window['Quit'].bind('<Escape>', close_me)
-
+    
     # Event loop.
     while True:
         event, values = window.read(timeout=100)
@@ -88,7 +115,10 @@ def main():
             engines = values['engines'] if values['engines'] == 'Choose model' else values['engines']
         if event == 'Answer':
             prompt_in = values['prompt']
-            openAi(engines, prompt_in)
+            openAi(prompt_in)
+        elif event == 'Create image':
+            prompt_ins = values['promptdalle']
+            dalle(prompt_ins)
         elif event == 'Open file':
             os.startfile('answers.txt', 'open')
         elif event == 'Clear':
@@ -109,3 +139,4 @@ if __name__ == '__main__':
     sg.theme('dark red')
     sg.theme('dark green 7')
     main()
+    
