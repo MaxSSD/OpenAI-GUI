@@ -54,7 +54,7 @@ def dalle(prompt_ins):
         webUrl = urllib.request.urlopen(image_url)
         img = Image.open(webUrl)
         speak('Displaying and saving image')
-        img.save(f'Dall-E: {prompt_ins}.png')
+        img.save(f'Dall-E: {prompt_ins}.PNG')
         img.show()
     except openai.error.OpenAIError as e:
         logging.info(e.http_status)
