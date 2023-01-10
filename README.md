@@ -23,7 +23,7 @@ openaigui.py
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 # Prerequisites
-In order to use this GUI, you will need to have a valid OpenAI API key. You can sign up for a free API key at the [OpenAI website](https://www.python.org/downloads/).
+In order to use this GUI, you will need to have a valid OpenAI API key. You can sign up for a free API key at the [OpenAI website](https://beta.openai.com/account/api-keys).
 
 You will also need to have Python 3 installed on your machine. You can download Python 3 from the official [Python website](https://www.python.org/downloads/).
 
