@@ -29,7 +29,7 @@ def modules(engines):
         model = "text-ada-001"
     return model
 
-def openAi(prompt_in):
+def openAi(prompt_in, engines):
     completion = openai.Completion.create(engine=modules(engines), prompt=prompt_in, temperature=0, max_tokens=377,
                                          top_p=1.0, frequency_penalty=0.0, presence_penalty=0.0)
     result = completion.choices[0].text
@@ -109,7 +109,7 @@ def main():
             engines = values['engines'] if values['engines'] == 'Choose model' else values['engines']
         if event == 'Answer':
             prompt_in = values['prompt']
-            openAi(prompt_in)
+            openAi(prompt_in, engines)
         elif event == 'Create image':
             prompt_ins = values['promptdalle']
             dalle(prompt_ins)
