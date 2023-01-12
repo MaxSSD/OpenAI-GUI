@@ -30,18 +30,24 @@ def modules(engines):
     return model
 
 def openAi(prompt_in, engines):
-    completion = openai.Completion.create(engine=modules(engines), prompt=prompt_in, temperature=0, max_tokens=377,
-                                         top_p=1.0, frequency_penalty=0.0, presence_penalty=0.0)
-    result = completion.choices[0].text
-    if len(result) < 150:
-        sg.Popup('Responding...', keep_on_top=True)
-        speak(result)
-        logger.info(result)
-    else:
-        sg.Popup('Responding to answers.txt', keep_on_top=True)
-        speak(noacc)
-        with open('answers.txt', 'a+') as f:
-            f.write(result)
+    try:
+        completion = openai.Completion.create(engine=select_engine(engines), prompt=prompt_in, temperature=0,
+                                              max_tokens=377,
+                                              top_p=1.0, frequency_penalty=0.0, presence_penalty=0.0)
+        result = completion.choices[0].text
+        if len(result) < 150:
+            sg.Popup('Responding...', keep_on_top=True)
+            speak(result)
+            logger.info(result)
+        else:
+            sg.Popup('Responding to answers.txt', keep_on_top=True)
+            speak(noacc)
+            with open('answers.txt', 'a+') as f:
+                f.write(result)
+    except openai.error.OpenAIError as e:
+        logging.info(e.http_status)
+        logging.info(e.error)
+
 
 def dalle(prompt_ins):
     try:
@@ -54,8 +60,9 @@ def dalle(prompt_ins):
         webUrl = urllib.request.urlopen(image_url)
         img = Image.open(webUrl)
         speak('Displaying and saving image')
-        img.save(f'Dall-E: {prompt_ins}.PNG')
+        file_name = os.path.basename(prompt_ins)[:255] + '.png'
         img.show()
+        img.save(file_name)
     except openai.error.OpenAIError as e:
         logging.info(e.http_status)
         logging.info(e.error)
@@ -133,4 +140,4 @@ if __name__ == '__main__':
     sg.theme('dark red')
     sg.theme('dark green 7')
     main()
-    
+   
