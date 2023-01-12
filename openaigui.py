@@ -17,6 +17,7 @@ logging.basicConfig(filename='answers.txt', level=logging.INFO)
 
 # Defines the modules() and openAi() functions which are used to select the engine and generate a response.
 def modules(engines):
+    model = None
     if engines == "text-davinci-003":
         model = "text-davinci-003"
     elif engines == "text-davinci-002":
@@ -29,10 +30,21 @@ def modules(engines):
         model = "text-ada-001"
     return model
 
+def select_max_tokens(max_tokens):
+    token = None
+    if max_tokens == 256:
+        token = 256
+    elif max_tokens == 2000:
+        token = 2000
+    elif max_tokens == 8000:
+        token = 8000
+    return token
+
 def openAi(prompt_in, engines):
+    max_tokens = select_max_tokens(256)
     try:
-        completion = openai.Completion.create(engine=select_engine(engines), prompt=prompt_in, temperature=0,
-                                              max_tokens=377,
+        completion = openai.Completion.create(engine=modules(engines), prompt=prompt_in, temperature=0,
+                                              max_tokens=select_max_tokens(max_tokens),
                                               top_p=1.0, frequency_penalty=0.0, presence_penalty=0.0)
         result = completion.choices[0].text
         if len(result) < 150:
@@ -47,7 +59,6 @@ def openAi(prompt_in, engines):
     except openai.error.OpenAIError as e:
         logging.info(e.http_status)
         logging.info(e.error)
-
 
 def dalle(prompt_ins):
     try:
@@ -66,7 +77,7 @@ def dalle(prompt_ins):
     except openai.error.OpenAIError as e:
         logging.info(e.http_status)
         logging.info(e.error)
-        
+
 def make_window(theme):
     sg.theme(theme)
     # GUI layout.
@@ -75,6 +86,7 @@ def make_window(theme):
         [sg.TabGroup([
             [sg.Tab("OpenAi", [
                 [sg.Radio("Choose model", "RADIO1", key="modules"), sg.Combo(["text-davinci-003", "text-davinci-002", "text-curie-001", "text-babbage-001", "text-ada-001"],key="engines")],
+                [sg.Radio("Choose max token", "RADIO1", key="select_max_tokens"), sg.Combo([256, 2000, 8000],key="max_tokens")],
                 [sg.Text("Enter your question or statement below:", font=("Arial", 9, 'bold'))],
                 [sg.Multiline(key="prompt", size=(77, 20))],
                 [sg.Button("Answer"), sg.Button('Open file'), sg.Button("Clear"), sg.Button("Quit")]
@@ -91,7 +103,7 @@ def make_window(theme):
             ]),
             sg.Tab("About", [
                 [sg.Text("text-davinci-003 - Upgraded davinci-002. GPT3 chatbot model.")],
-                [sg.Text("text-davinci-002 - Complex intent, cause and effect, summarization for audience")],
+                [sg.Text("text-davinci-002 - Code review, complex intent, cause and effect, summarization for audience")],
                 [sg.Text("text-curie-001 - Language translation, complex classification, text sentiment, summarization")],
                 [sg.Text("text-babbage-001 - Moderate classification, semantic search classification")],
                 [sg.Text("text-ada-001 - Parsing text, simple classification, address correction, keywords")]
@@ -106,14 +118,23 @@ def make_window(theme):
     # window.bind('<Configure>', "Configure")
     return window
 
+    # Set keyboard shortcuts for the buttons [ADD KEY BINDS]
+    # window.bind(bind_string="<Enter>", key="Answer", propagate=True)
+    # window['Answer'].bind('<Return>', 'Answer')
+    # window['Clear'].bind('<Delete>', 'Clear')
+    # window['Quit'].bind('<Escape>', close_me)
 # GUI window that runs the main() function to interact with the user.
+
 def main():
-    window = make_window(sg.theme())   
+    window = make_window(sg.theme())
     # Event loop.
     while True:
         event, values = window.read(timeout=100)
+        max_tokens = select_max_tokens(377)
         if values is not None:
             engines = values['engines'] if values['engines'] == 'Choose model' else values['engines']
+        if values is not None:
+            max_tokens = values['max_tokens'] if values['max_tokens'] == 'Choose max token' else values['max_tokens']
         if event == 'Answer':
             prompt_in = values['prompt']
             openAi(prompt_in, engines)
@@ -140,4 +161,4 @@ if __name__ == '__main__':
     sg.theme('dark red')
     sg.theme('dark green 7')
     main()
-   
+    
