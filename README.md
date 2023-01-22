@@ -13,9 +13,9 @@ The program works. If you encounter problems running it or have other bug report
 # Screenshots & Videos
 openaigui.py
 
-![Capture](https://user-images.githubusercontent.com/86234226/211484577-812ae20a-b9c5-44ec-b37f-2c545e52cbf5.PNG)
+![Capture](https://user-images.githubusercontent.com/86234226/213918445-3d478d7e-00e6-4994-b887-2a90762be7ca.PNG)
 
-![Capture1](https://user-images.githubusercontent.com/86234226/211484606-3217075c-04cd-493a-ad4f-9d833daf0d0c.PNG)
+![Capture1](https://user-images.githubusercontent.com/86234226/213918705-efe4739b-257c-4415-9125-89de45d35aa2.PNG)
 
 ![Dall-E Picture of grey cat smoking a cigar](https://user-images.githubusercontent.com/86234226/211488407-69a46796-f3b5-4796-9caa-33a4a8d005eb.PNG)
 
@@ -63,9 +63,9 @@ OpenAI based model GUI tool which displays a desktop prompt window for OpenAI GP
 
 # Developer Information
 ## Known Working Versions of Dependencies for openaipysgui.py
-* openai==0.16.0
-* pyttsx3==2.90
+* logging==0.5.1.2
 * PySimpleGUI==4.60.4
+* openai==0.16.0
 * Pillow==9.2.0
 
 ## Developing a New Component
