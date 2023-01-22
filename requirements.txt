@@ -1,5 +1,4 @@
-openai==0.16.0
-pyttsx3==2.90
-tk==0.1.0
-Pillow==9.2.0
+logging==0.5.1.2
 PySimpleGUI==4.60.4
+openai==0.16.0
+Pillow==9.2.0
