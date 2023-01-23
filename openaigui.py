@@ -15,56 +15,38 @@ from api_key import key
 logger = logging.getLogger()
 logging.basicConfig(filename='answers.txt', level=logging.INFO)
 
+max_tokens_list = (256, 2000, 8000)
+models = ("text-davinci-003", "text-davinci-002",
+          "text-curie-001", "text-babbage-001", "text-ada-001")
+size_list = ("256x256", "512x512", "1024x1024")
+
 # Defines the modules() and openAi() functions which are used to select the engine and generate a response.
 def modules(engines):
-    model = None
-    if engines == "text-davinci-003":
-        model = "text-davinci-003"
-    elif engines == "text-davinci-002":
-        model = "text-davinci-002"
-    elif engines == "text-curie-001":
-        model = "text-curie-001"
-    elif engines == "text-babbage-001":
-        model = "text-babbage-001"
-    elif engines == "text-ada-001":
-        model = "text-ada-001"
-    return model
+    return engines if engines in models else None
 
 def select_max_tokens(max_tokens):
-    token = None
-    if max_tokens == 256:
-        token = 256
-    elif max_tokens == 2000:
-        token = 2000
-    elif max_tokens == 8000:
-        token = 8000
-    return token
+    return max_tokens if max_tokens in max_tokens_list else None
 
 def picture_size(size):
-    sizing = None
-    if size == "256x256":
-        sizing = "256x256"
-    elif size == "512x512":
-        sizing = "512x512"
-    elif size == "1024x1024":
-        sizing = "1024x1024"
-    return sizing
+    return size if size in size_list else None
 
 def openAi(prompt_in, engines, max_tokens):
+    sg.popup_quick_message('Responding...')
     max_tokens = select_max_tokens(256)
-    completion = openai.Completion.create(engine=modules(engines), prompt=prompt_in, temperature=0, max_tokens=select_max_tokens(max_tokens), top_p=1.0)
+    completion = openai.Completion.create(engine=modules(
+        engines), prompt=prompt_in, temperature=0, max_tokens=select_max_tokens(max_tokens), top_p=1.0)
     result = completion.choices[0].text
     if len(result) < 150:
-        sg.Popup('Responding...', keep_on_top=True)
         print(result)
         logger.info(result)
     else:
-        sg.Popup('Responding to answers.txt', keep_on_top=True)
+        sg.popup_quick_message('Responding to answers.txt')
         print(result)
         with open('answers.txt', 'a+') as f:
             f.write(result)
 
 def dalle(prompt_ins, size):
+    sg.popup_quick_message('Creating and saving image...')
     response = openai.Image.create(
         prompt=prompt_ins,
         n=1,
@@ -73,7 +55,6 @@ def dalle(prompt_ins, size):
     image_url = response['data'][0]['url']
     webUrl = urllib.request.urlopen(image_url)
     img = Image.open(webUrl)
-    sg.Popup('Displaying and saving image...', keep_on_top=True)
     file_name = os.path.basename(prompt_ins)[:255] + '.png'
     img.show()
     img.save(file_name)
@@ -87,32 +68,29 @@ def make_window(theme):
             "Helvetica", 13), relief=sg.RELIEF_RIDGE, key="-TEXT HEADING-", enable_events=True)],
         [sg.TabGroup([
             [sg.Tab("OpenAi", [
-                [sg.Radio("Choose model", "RADIO1", key="modules"), sg.Combo(
-                    ["text-davinci-003", "text-davinci-002", "text-curie-001", "text-babbage-001", "text-ada-001"], key="engines")],
+                [sg.Radio("Choose model", "RADIO1", default=True, key="modules"), sg.Combo(
+                    models, default_value=models[0], key="engines", readonly=True)],
                 [sg.Radio("Choose max token", "RADIO1", key="select_max_tokens"), sg.Combo(
-                    [256, 2000, 8000], key="max_tokens")],
+                    max_tokens_list, default_value=max_tokens_list[0], key="max_tokens")],
                 [sg.Text("Enter your question or statement below:",
                          font=("Arial", 9, 'bold'))],
-                [sg.Multiline(key="prompt", size=(77, 20),
-                              expand_x=True, expand_y=True)],
-                [sg.Multiline(size=(60, 15), font=("Arial", 9), expand_x=True, expand_y=True, write_only=True,
-                              reroute_stdout=True, reroute_stderr=True, echo_stdout_stderr=True, autoscroll=True, auto_refresh=True)],
-                [sg.Button("Answer"), sg.Button('Open file'),
+                [sg.Pane([sg.Column([[sg.Multiline(key="prompt", size=(77, 20), expand_x=True, expand_y=True, enter_submits=True, focus=True)]]),
+                          sg.Column([[sg.Multiline(size=(60, 15), font=("Arial", 9), expand_x=True, expand_y=True, write_only=True,
+                                                   reroute_stdout=True, reroute_stderr=True, echo_stdout_stderr=True, autoscroll=True, auto_refresh=True)]])], expand_x=True, expand_y=True)],
+                [sg.Button("Answer", bind_return_key=True), sg.Button('Open file'),
                  sg.Button("Clear"), sg.Button("Quit")]
             ]),
                 sg.Tab("Dall-E", [
                     [sg.Text("Suggest impression:", font=("Arial", 9, 'bold'))],
                     [sg.Radio("Choose picture size", "RADIO1", key="picture_size"), sg.Combo(
-                        ["256x256", "512x512", "1024x1024"], key="size")],
-                    [sg.Multiline(key="promptdalle", size=(
-                        77, 20), expand_x=True, expand_y=True)],
+                        size_list, default_value=size_list[0], key="size")],
+                    [sg.Multiline(key="promptdalle", size=(77, 20), expand_x=True, expand_y=True, enter_submits=True, focus=True)],
                     [sg.Button("Create image"), sg.Button(
-                     "Clear"), sg.Button("Quit")]
+                        "Clear"), sg.Button("Quit")]
                 ]),
                 sg.Tab("Theme", [
                     [sg.Text("Choose theme:")],
-                    [sg.Listbox(values=sg.theme_list(), size=(20, 12),
-                                key="-THEME LISTBOX-", enable_events=True)],
+                    [sg.Listbox(values=sg.theme_list(), size=(20, 12), key="-THEME LISTBOX-", enable_events=True)],
                     [sg.Button("Set Theme")]
                 ]),
                 sg.Tab("About", [
@@ -121,31 +99,18 @@ def make_window(theme):
                     [sg.Text(
                         "text-davinci-002 - Code review, complex intent, cause and effect, summarization for audience")],
                     [sg.Text(
-                        "code-davinci-edit-001 - Edit endpoint is particularly useful for editing code.")],
-                    [sg.Text(
                         "text-curie-001 - Language translation, complex classification, text sentiment, summarization")],
                     [sg.Text(
                         "text-babbage-001 - Moderate classification, semantic search classification")],
                     [sg.Text(
                         "text-ada-001 - Parsing text, simple classification, address correction, keywords")]
                 ])
-            ]], key="-TAB GROUP-", expand_x=True, expand_y=True)
-         ]]
-    layout[-1].append(sg.Sizegrip())
+            ]], key="-TAB GROUP-", expand_x=True, expand_y=True), sg.Sizegrip()]]
     # Gui window and layout sizing.
     # icon='C:/OpenAI-GUI/icon.ico'
     window = sg.Window('OpenAI GUI', layout, resizable=True,
                        return_keyboard_events=True, finalize=True)
-    # window.bind(bind_string="<Enter>", key="Answer", propagate=True)
-    # window.bind('<Configure>', "Configure")
     return window
-
-    # Set keyboard shortcuts for the buttons [ADD KEY BINDS]
-    # window.bind(bind_string="<Enter>", key="Answer", propagate=True)
-    # window['Answer'].bind('<Return>', 'Answer')
-    # window['Clear'].bind('<Delete>', 'Clear')
-    # window['Quit'].bind('<Escape>', close_me)
-    #
 
 # GUI window that runs the main() function to interact with the user.
 def main():
