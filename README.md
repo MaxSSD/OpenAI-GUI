@@ -15,6 +15,8 @@ openaigui.py
 
 https://user-images.githubusercontent.com/86234226/214017814-79df0b40-a947-44a3-a682-e40ffcddd8ef.MP4
 
+![Capture](https://user-images.githubusercontent.com/86234226/214817485-f64f5bf9-5a96-4114-aab2-9b1160476cb4.PNG)
+
 # Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
