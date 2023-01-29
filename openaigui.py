@@ -52,7 +52,7 @@ def openAi(prompt_in, engines, max_tokens):
         with open('answers.txt', 'a+') as f:
             f.write(result)
 
-
+# CREATE IMAGE FROM SUGGESTION
 def dalle(prompt_ins, size):
     sg.popup_quick_message('Creating and saving image...')
     response = openai.Image.create(
@@ -67,7 +67,7 @@ def dalle(prompt_ins, size):
     img.show()
     img.save(file_name)
 
-
+# IMAGE BASED ON OTHER IMAGE
 def dalle_variation(file_name, size):
     sg.popup_quick_message('Creating and saving image...')
     suggestion = open(file_name, "rb")
@@ -84,7 +84,7 @@ def dalle_variation(file_name, size):
     img.show()
     img.save(file_save_name)
 
-
+# INPUT PICTURE AND PROMPT TO CREATE IMAGE IMPRESSION
 def dalle_edit(prompt_ins, size):
     openai.Image.create_edit(
         image=open("otter.png", "rb"),
