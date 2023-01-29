@@ -128,7 +128,6 @@ def main():
         event, values = window.read(timeout=None)
         if event == sg.WINDOW_CLOSED or event == 'Quit' or event == 'Exit':
             break
-        max_tokens = select_max_tokens(377)
         if values is not None:
             engines = values['-ENGINES-'] if values['-ENGINES-'] == 'Choose model' else values['-ENGINES-']
         if values is not None:
