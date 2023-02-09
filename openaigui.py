@@ -10,13 +10,14 @@ from io import BytesIO
 from api_key import key
 from imgnsound import icon
 
-
 # @https://beta.openai.com/docs/engines/gpt-3
+key = openai.api_key
 
 logger = logging.getLogger()
 logging.basicConfig(filename='answers.txt', level=logging.INFO)
 
-max_tokens_list = (256, 8000)
+# max_tokens_list = (256, 8000)
+max_tokens_list = [256, 3999, 7999]
 models = ("text-davinci-003", "text-davinci-002",
           "text-curie-001", "text-babbage-001", "text-ada-001")
 size_list = ("256x256", "512x512", "1024x1024")
@@ -38,9 +39,8 @@ def picture_size(size):
 
 def openAi(prompt_in, engines, max_tokens):
     sg.popup_quick_message('Responding...')
-    max_tokens = select_max_tokens(256)
     completion = openai.Completion.create(engine=modules(
-        engines), prompt=prompt_in, temperature=0, max_tokens=select_max_tokens(max_tokens), top_p=1.0)
+        engines), prompt=prompt_in, temperature=0, max_tokens=select_max_tokens(max_tokens))
     result = completion.choices[0].text
     if len(result) < 150:
         print(result)
@@ -70,7 +70,6 @@ def dalle(prompt_ins, size):
 
 def make_window(theme):
     sg.theme(theme)
-    max_tokens = select_max_tokens(256)
     # GUI layout.
     layout = [
         [sg.Text("OpenAIGUI",  expand_x=True, justification="center",
@@ -79,8 +78,8 @@ def make_window(theme):
             sg.Tab("OpenAi", [
                 [sg.Radio("Choose model", "RADIO1", default=True, key="modules"), sg.Combo(
                     models, default_value=models[0], key="-ENGINES-", readonly=True)],
-                [sg.Radio("Choose max token", "RADIO1", key="select_max_tokens"), sg.Slider(
-                    (max_tokens_list), resolution=1, default_value=256, orientation='h', size=(15, 15), key="-MAXTOKENS-")],
+                [sg.Radio("Choose max token", "RADIO1", key="select_max_tokens"), sg.Combo(
+                    max_tokens_list, default_value=max_tokens_list[0], key="-MAXTOKENS-", readonly=True)],
                 [sg.Text("Enter your question or statement below:",
                          font=('_ 13'))],
                 [sg.Pane([sg.Column([[sg.Multiline(key="prompt", size=(77, 20), expand_x=True, expand_y=True, enter_submits=True, focus=True)]]),
@@ -114,8 +113,7 @@ def make_window(theme):
                     "text-ada-001 - Parsing text, simple classification, address correction, keywords")]])]], key="-TAB GROUP-", expand_x=True, expand_y=True),
          sg.Sizegrip()]]
     # Gui window and layout sizing.
-    window = sg.Window('OpenAI GUI', layout, resizable=True,
-                       right_click_menu=sg.MENU_RIGHT_CLICK_EDITME_VER_EXIT, icon=icon, finalize=True)
+    window = sg.Window('OpenAI GUI', layout, resizable=True, right_click_menu=sg.MENU_RIGHT_CLICK_EDITME_VER_EXIT, icon=icon, finalize=True)
     window.set_min_size(window.size)
     return window
 
