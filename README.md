@@ -5,9 +5,8 @@ This is a graphical user interface (GUI) for interacting with various OpenAI mod
 The program works. If you encounter problems running it or have other bug reports or features that you wish to see implemented, please fork the project and submit a pull request and/or file an [issue](https://github.com/MaxSSD/OpenAI-GUI/issues) on this project.
 
 # TBD
-1. Voice prompt on press or voice command.
+1. Add Whisper.
 2. Button binds for functionality (Enter, Esc, Delete)
-3. Embeddings text input from https://beta.openai.com/docs/guides/embeddings/what-are-embeddings
 4. Write to class
 
 # Screenshots & Videos
